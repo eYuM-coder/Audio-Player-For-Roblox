@@ -183,7 +183,7 @@ local function toggleSound()
 		end
 	else
 		if sound.SoundId == "" or soundCount == 0 then
-			displayErrorMessage("Please enter an audio ID, or click the get audios button")
+			displayErrorMessage("Please enter an audio ID, or click the get audios button.")
 			return
 		end
 		local success, errorMessage = pcall(function()
