@@ -170,7 +170,7 @@ end
 -- Update the toggleSound function to handle errors
 local function toggleSound()
 	local playnumber = 0
-	if isPlaying and sound.Looped then
+	if isPlaying and sound.Looped and soundCount > 0 then
 		for _, sound in next, workspace:GetDescendants() do
 			if sound:IsA("Sound") and sound.SoundId == "rbxassetid://"..textbox.Text then
 				wait(0.025)
@@ -189,7 +189,7 @@ local function toggleSound()
 		local success, errorMessage = pcall(function()
 			isPlaying = true
 			for _, sound in next, workspace:GetDescendants() do
-				if sound:IsA("Sound") and sound.SoundId == "rbxassetid://"..textbox.Text then
+				if sound:IsA("Sound") and sound.SoundId == "rbxassetid://"..textbox.Text and soundCount > 0 then
 					wait(0.04)
 					playnumber += 1
 					sound:Play()
@@ -198,6 +198,9 @@ local function toggleSound()
 					sound.Pitch = tonumber(pitchtextbox.Text) or 1
 					displayErrorMessage("Audio #"..playnumber.." playing.")
 					messageLabel.TextColor3 = Color3.new(0, 1, 0)
+				else
+					messageLabel.TextColor3 = Color3.new(1, 0, 0)
+					displayErrorMessage("Cannot play audio, the get audios button has not been clicked!")
 				end
 			end
 		end)
@@ -240,6 +243,7 @@ end
 rejoinButton.MouseButton1Click:Connect(rejoin)
 
 local function toggleLoop()
+	local loopnumber = 0
 	local audioId = tonumber(textbox.Text)
 	if audioId then
 		for _, sound in next, workspace:GetDescendants() do
@@ -247,9 +251,15 @@ local function toggleLoop()
 				if not sound.Looped then
 					sound.Looped = true
 					loop.Text = "Unloop"
+					loopnumber += 1
+					messageLabel.TextColor3 = Color3.new(0, 1, 0)
+					displayErrorMessage("Enabled loop for audio #"..loopnumber)
 				else
 					sound.Looped = false
 					loop.Text = "Loop"
+					loopnumber += 1
+					messageLabel.TextColor3 = Color3.new(1, 0, 0)
+					displayErrorMessage("Disabled loop for audio #"..loopnumber)
 				end
 			end
 		end
