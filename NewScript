@@ -182,8 +182,8 @@ local function toggleSound()
 			end
 		end
 	else
-		if sound.SoundId == "" then
-			displayErrorMessage("Please enter an audio ID")
+		if sound.SoundId == "" or soundCount == 0 then
+			displayErrorMessage("Please enter an audio ID, or click the get audios button")
 			return
 		end
 		local success, errorMessage = pcall(function()
@@ -198,9 +198,6 @@ local function toggleSound()
 					sound.Pitch = tonumber(pitchtextbox.Text) or 1
 					displayErrorMessage("Audio #"..playnumber.." playing.")
 					messageLabel.TextColor3 = Color3.new(0, 1, 0)
-				else
-					messageLabel.TextColor3 = Color3.new(1, 0, 0)
-					displayErrorMessage("Cannot play audio, the get audios button has not been clicked!")
 				end
 			end
 		end)
