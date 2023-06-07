@@ -248,13 +248,13 @@ local function toggleLoop()
 	if audioId then
 		for _, sound in next, workspace:GetDescendants() do
 			if sound:IsA("Sound") and sound.SoundId == "rbxassetid://"..textbox.Text and soundCount > 0 then
-				if not sound.Looped then
+				if not sound.Looped and soundCount > 0 then
 					sound.Looped = true
 					loop.Text = "Unloop"
 					loopnumber += 1
 					messageLabel.TextColor3 = Color3.new(0, 1, 0)
 					displayErrorMessage("Enabled loop for audio #"..loopnumber)
-				elseif sound.Looped then
+				elseif sound.Looped and soundCount > 0 then
 					sound.Looped = false
 					loop.Text = "Loop"
 					loopnumber += 1
