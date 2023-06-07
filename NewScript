@@ -187,17 +187,20 @@ local function toggleSound()
 			return
 		end
 		local success, errorMessage = pcall(function()
-			isPlaying = true
-			for _, sound in next, workspace:GetDescendants() do
-				if sound:IsA("Sound") and sound.SoundId == "rbxassetid://"..textbox.Text and soundCount > 0 then
-					wait(0.04)
-					playnumber += 1
-					sound:Play()
-					sound.SoundId = "rbxassetid://"..tostring(textbox.Text)
-					sound.Volume = tonumber(volumetextbox.Text) or 1
-					sound.Pitch = tonumber(pitchtextbox.Text) or 1
-					displayErrorMessage("Audio #"..playnumber.." playing.")
-					messageLabel.TextColor3 = Color3.new(0, 1, 0)
+			if sound.Looped then
+				isPlaying = true
+			else
+				for _, sound in next, workspace:GetDescendants() do
+					if sound:IsA("Sound") and sound.SoundId == "rbxassetid://"..textbox.Text and soundCount > 0 then
+						wait(0.04)
+						playnumber += 1
+						sound:Play()
+						sound.SoundId = "rbxassetid://"..tostring(textbox.Text)
+						sound.Volume = tonumber(volumetextbox.Text) or 1
+						sound.Pitch = tonumber(pitchtextbox.Text) or 1
+						displayErrorMessage("Audio #"..playnumber.." playing.")
+						messageLabel.TextColor3 = Color3.new(0, 1, 0)
+					end
 				end
 			end
 		end)
