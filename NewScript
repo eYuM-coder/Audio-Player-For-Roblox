@@ -254,16 +254,16 @@ local function toggleLoop()
 					loopnumber += 1
 					messageLabel.TextColor3 = Color3.new(0, 1, 0)
 					displayErrorMessage("Enabled loop for audio #"..loopnumber)
-				elseif sound.Looped and soundCount > 0 then
+				else
 					sound.Looped = false
 					loop.Text = "Loop"
 					loopnumber += 1
 					messageLabel.TextColor3 = Color3.new(1, 0, 0)
 					displayErrorMessage("Disabled loop for audio #"..loopnumber)
-				else
-					messageLabel.TextColor3 = Color3.new(1, 0, 0)
-					displayErrorMessage("Cannot toggle loop, the get audios button has not been clicked!")
 				end
+			else
+				messageLabel.TextColor3 = Color3.new(1, 0, 0)
+				displayErrorMessage("Cannot loop audio, the get all audios button hasn't been clicked!")
 			end
 		end
 	end
